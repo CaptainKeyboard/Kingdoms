@@ -1,8 +1,5 @@
 package net.velion.arena.score;
 
-/**
- * @author Franz Kohout
- */
 public class ScoreEntry implements IScoreType {
     private int score;
     private int kills;

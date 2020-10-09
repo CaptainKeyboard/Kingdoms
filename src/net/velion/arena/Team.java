@@ -7,46 +7,43 @@ import net.velion.arena.score.ScoreTable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Franz Kohout
- */
 public class Team implements IArenaEntity {
-    private List<ArenaPlayer> members;
+    private List<Player> members;
     private ScoreTable scoreTable;
 
     public Team() {
         members = new ArrayList<>();
     }
 
-    public void setMemebers(List<ArenaPlayer> players) {
+    public void setMemebers(List<Player> players) {
         members = players;
     }
 
-    public void addMember(ArenaPlayer player) {
+    public void addMember(Player player) {
         members.add(player);
     }
 
-    public void addAllMembers(List<ArenaPlayer> players) {
+    public void addAllMembers(List<Player> players) {
         members.addAll(players);
     }
 
     @Override
     public void setObjectives(List<Objective> objectives) {
-        for(ArenaPlayer player: members) {
+        for (Player player : members) {
             player.setObjectives(objectives);
         }
     }
 
     @Override
     public void addObjective(Objective objective) {
-        for(ArenaPlayer player: members) {
+        for (Player player : members) {
             player.addObjective(objective);
         }
     }
 
     @Override
     public void clearObjectives() {
-        for(ArenaPlayer player: members) {
+        for (Player player : members) {
             player.clearObjectives();
         }
     }
@@ -56,7 +53,7 @@ public class Team implements IArenaEntity {
         return scoreTable;
     }
 
-    public int getCount() {
+    public int size() {
         return members.size();
     }
 }

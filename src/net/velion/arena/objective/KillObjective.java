@@ -2,9 +2,6 @@ package net.velion.arena.objective;
 
 import net.velion.arena.IArenaEntity;
 
-/**
- * @author Franz Kohout
- */
 public class KillObjective extends Objective {
     private int goal;
 

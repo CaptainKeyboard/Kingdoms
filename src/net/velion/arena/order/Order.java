@@ -3,12 +3,9 @@ package net.velion.arena.order;
 import net.velion.arena.IArenaEntity;
 import net.velion.arena.objective.Objective;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/**
- * @author Franz Kohout
- */
 public class Order {
     private IArenaEntity entity;
     private List<Objective> objectives;
@@ -16,6 +13,7 @@ public class Order {
 
     public Order(IArenaEntity entity) {
         this.entity = entity;
+        objectives = new ArrayList<>();
     }
 
     public void reset() {
@@ -24,19 +22,12 @@ public class Order {
     }
 
     public boolean check() {
-        boolean achieved = true;
-        for(Objective objective: objectives) {
-            if(!objective.check()) {
-                achieved = false;
+        for (Objective objective : objectives) {
+            if (!objective.check()) {
+                return false;
             }
         }
-
-        if(achieved) {
-            return true;
-        }
-
-        List<Objective> currentObjective = objectives.stream().filter(objective -> { return objective.getOrderID() == currentOrderID; }).collect(Collectors.toList());
-
+        return true;
     }
 
     public void setObjectives(List<Objective> objectives) {
@@ -45,5 +36,13 @@ public class Order {
 
     public void addObjective(Objective objective) {
         objectives.add(objective);
+    }
+
+    public IArenaEntity getEntity() {
+        return entity;
+    }
+
+    public void deliver() {
+        entity.setObjectives(objectives);
     }
 }

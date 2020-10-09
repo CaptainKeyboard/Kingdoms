@@ -2,25 +2,22 @@ package net.velion.arena;
 
 import java.util.List;
 
-/**
- * @author Franz Kohout
- */
 public class Party {
-    private List<ArenaPlayer> players;
-    private ArenaPlayer leader;
+    private List<Player> players;
+    private Player leader;
 
-    public Party(ArenaPlayer leader) {
+    public Party(Player leader) {
         this.leader = leader;
     }
 
-    public void join(ArenaPlayer player) {
-        if(player.getParty() == null) {
+    public void join(Player player) {
+        if (player.getParty() == null) {
             players.add(player);
             player.setParty(this);
         }
     }
 
-    public List<ArenaPlayer> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 }

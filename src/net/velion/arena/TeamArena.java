@@ -3,15 +3,11 @@ package net.velion.arena;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @author Franz Kohout
- */
 public class TeamArena extends Arena {
     private List<Team> teams;
 
     public TeamArena() {
         teams = new ArrayList<>();
-        entities = (List<? extends IArenaEntity>) teams;
     }
 
     public void start() {
@@ -20,17 +16,17 @@ public class TeamArena extends Arena {
     }
 
     public void assignTeams() {
-        List<ArenaPlayer> players = new ArrayList<>(this.players);
+        List<Player> players = new ArrayList<>(this.players);
         Set<Party> parties = getAllParties();
         Random random = new Random();
-        for(Party party: parties) {
+        for (Party party : parties) {
             List<Team> teams = getSmallestTeams();
             Team team = teams.get(random.nextInt(teams.size()));
-            List<ArenaPlayer> partyMembers = party.getPlayers();
+            List<Player> partyMembers = party.getPlayers();
             team.addAllMembers(partyMembers);
             players.removeAll(partyMembers);
         }
-        for(ArenaPlayer player: players) {
+        for (Player player : players) {
             List<Team> teams = getSmallestTeams();
             Team team = teams.get(random.nextInt(teams.size()));
             team.addMember(player);
@@ -39,8 +35,10 @@ public class TeamArena extends Arena {
 
     private Set<Party> getAllParties() {
         Set<Party> parties = new HashSet<>();
-        for(ArenaPlayer player: players) {
-            parties.add(player.getParty());
+        for (Player player : players) {
+            if (player.getParty() != null) {
+                parties.add(player.getParty());
+            }
         }
         return parties;
     }
@@ -50,10 +48,10 @@ public class TeamArena extends Arena {
             return null;
         }
 
-        int count = Collections.min(teams.stream().map(Team::getCount).collect(Collectors.toList()));
+        int count = Collections.min(teams.stream().map(Team::size).collect(Collectors.toList()));
 
         return teams.stream().filter(team -> {
-            return team.getCount() == count;
+            return team.size() == count;
         }).collect(Collectors.toList());
     }
 
@@ -63,5 +61,10 @@ public class TeamArena extends Arena {
 
     public void addTeam(Team team) {
         teams.add(team);
+    }
+
+    @Override
+    public List<? extends IArenaEntity> getEntities() {
+        return teams;
     }
 }
