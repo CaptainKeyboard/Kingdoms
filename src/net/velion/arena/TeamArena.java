@@ -1,21 +1,24 @@
 package net.velion.arena;
 
+import net.velion.arena.validation.ArenaInvalidException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeamArena extends Arena {
     private List<Team> teams;
 
-    public TeamArena() {
+    public TeamArena(String name) {
+        super(name);
         teams = new ArrayList<>();
     }
 
-    public void start() {
+    public void start() throws ArenaInvalidException {
         assignTeams();
         super.start();
     }
 
-    public void assignTeams() {
+    private void assignTeams() {
         List<Player> players = new ArrayList<>(this.players);
         Set<Party> parties = getAllParties();
         Random random = new Random();
@@ -50,9 +53,7 @@ public class TeamArena extends Arena {
 
         int count = Collections.min(teams.stream().map(Team::size).collect(Collectors.toList()));
 
-        return teams.stream().filter(team -> {
-            return team.size() == count;
-        }).collect(Collectors.toList());
+        return teams.stream().filter(team -> team.size() == count).collect(Collectors.toList());
     }
 
     public void setTeams(List<Team> teams) {

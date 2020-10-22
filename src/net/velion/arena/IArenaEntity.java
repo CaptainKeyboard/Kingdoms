@@ -10,7 +10,15 @@ public interface IArenaEntity {
 
     void addObjective(Objective objective);
 
+    void addAllObjectives(List<Objective> objectives);
+
     void clearObjectives();
 
     IScoreType getScore();
+
+    String getName();
+
+    boolean checkObjectives();
+
+    void resetObjectives();
 }

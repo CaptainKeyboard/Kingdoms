@@ -1,52 +1,31 @@
 package net.velion.arena.stage;
 
 import net.velion.arena.IArenaEntity;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import net.velion.arena.validation.ArenaInvalidException;
 
 public class Staging {
-    private Stage defaultStage;
-    private Map<IArenaEntity, List<Stage>> stageMapping;
-    private IArenaEntity currentStageEntity;
-    private int currentStageID;
-
-    public Staging() {
-        stageMapping = new HashMap<>();
-        currentStageEntity = null;
-        currentStageID = 0;
-    }
+    protected Stage defaultStage;
 
     public void setDefaultStage(Stage defaultStage) {
         this.defaultStage = defaultStage;
-    }
-
-    public void addStage(IArenaEntity entity, Stage stage) {
-        if (stageMapping.containsKey(entity)) {
-            stageMapping.get(entity).add(stage);
-        } else {
-            stageMapping.put(entity, Arrays.asList(stage));
-        }
     }
 
     public void start() {
         defaultStage.start();
     }
 
-    public Stage nextStage(IArenaEntity entity) {
-        if (currentStageEntity == null || currentStageEntity == entity) {
-            currentStageEntity = entity;
-            currentStageID++;
-        } else if (currentStageEntity != entity) {
-            currentStageID--;
-        }
-        if (currentStageID == 0) {
-            currentStageEntity = null;
-            return defaultStage;
+    public boolean hasNextStage(IArenaEntity entity) {
+        return false;
+    }
+
+    public void update(IArenaEntity entity) {
+    }
+
+    public void validate() throws ArenaInvalidException {
+        if (defaultStage == null) {
+            throw new ArenaInvalidException(3);
         } else {
-            return stageMapping.get(entity).get(currentStageID - 1);
+            defaultStage.validate();
         }
     }
 }
