@@ -1,0 +1,112 @@
+{
+  "type": "team arena",
+  "name": "Storm",
+  "teams": [
+    {
+      "name": "Red Team"
+    },
+    {
+      "name": "Blue Team"
+    },
+    {
+      "name": "Green Team"
+    }
+  ],
+  "capture_points": [
+    {
+      "name": "Capture Point 1"
+    },
+    {
+      "name": "Capture Point 2"
+    },
+    {
+      "name": "Capture Point 3"
+    },
+    {
+      "name": "Capture Point 4"
+    }
+  ],
+  "rounds": [
+    {
+      "conditions": [
+        {
+          "type": "time condition",
+          "time": 300
+        },
+        {
+          "type": "last stage condition"
+        },
+        {
+          "type": "score condition",
+          "goal": 1000,
+          "evaluation": true,
+          "ignore": true
+        }
+      ],
+      "staging": {
+        "type": "complex staging",
+        "default_stage": {
+          "name": "Default Stage",
+          "global_order": {
+            "objectives": [
+              {
+                "type": "capture objective",
+                "capture_point": "Capture Point 1"
+              }
+            ]
+          }
+        },
+        "stage_mapping": [
+          {
+            "entity": "Red Team",
+            "stages": [
+              {
+                "name": "Red Stage",
+                "global_order": {
+                  "objectives": [
+                    {
+                      "type": "capture objective",
+                      "capture_point": "Capture Point 2"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "entity": "Blue Team",
+            "stages": [
+              {
+                "name": "Blue Stage",
+                "global_order": {
+                  "objectives": [
+                    {
+                      "type": "capture objective",
+                      "capture_point": "Capture Point 3"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "entity": "Green Team",
+            "stages": [
+              {
+                "name": "Green Stage",
+                "global_order": {
+                  "objectives": [
+                    {
+                      "type": "capture objective",
+                      "capture_point": "Capture Point 4"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
